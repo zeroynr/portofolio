@@ -1,4 +1,4 @@
-// Enhanced Snake Game Implementation
+// Enhanced Snake Game Implementation - No UI Display
 class EnhancedSnakeGame {
   constructor(canvas) {
     this.canvas = canvas;
@@ -420,7 +420,11 @@ class EnhancedSnakeGame {
 
     if (foodEaten) {
       this.score += scoreGain;
-      document.getElementById("score").textContent = this.score;
+      // Update score display hanya jika elemen ada
+      const scoreElement = document.getElementById("score");
+      if (scoreElement) {
+        scoreElement.textContent = this.score;
+      }
 
       // Level up setiap 5 makanan
       if (this.foodEaten % 5 === 0) {
@@ -481,8 +485,7 @@ class EnhancedSnakeGame {
     // Draw particles
     this.drawParticles();
 
-    // Draw UI
-    this.drawUI();
+    // UI dihapus - tidak ada lagi drawUI()
   }
 
   drawGrid() {
@@ -637,25 +640,7 @@ class EnhancedSnakeGame {
     this.ctx.shadowBlur = 0;
   }
 
-  drawUI() {
-    // Level indicator
-    this.ctx.fillStyle = "#ffff00";
-    this.ctx.font = "12px 'Press Start 2P'";
-    this.ctx.fillText(`LEVEL: ${this.level}`, 20, 30);
-
-    // Length indicator
-    this.ctx.fillText(`LENGTH: ${this.snake.length}`, 20, 50);
-
-    // Special food timer
-    if (this.specialFood) {
-      this.ctx.fillStyle = "#ff8800";
-      this.ctx.fillText(
-        `BONUS: ${Math.ceil(this.specialFoodTimer / 60)}s`,
-        20,
-        70
-      );
-    }
-  }
+  // drawUI() method telah dihapus sepenuhnya
 
   gameLoop() {
     if (this.gameRunning) {
@@ -673,9 +658,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (canvas) {
     new EnhancedSnakeGame(canvas);
   }
-
-  // Semua fungsi navigasi dan interaksi lainnya tetap sama
-  // ... (copy semua kode navigasi dari script asli)
 
   // Smooth scrolling for navigation
   const navLinks = document.querySelectorAll(".nav-link");
@@ -813,6 +795,7 @@ console.log(`
     
     🐍 ENHANCED SNAKE GAME LOADED! 🐍
     Features: Smooth Movement, Long Tail, Smart AI, Special Foods!
+    UI Display: DISABLED (Clean gameplay experience)
     Ketik 'snakehelp()' untuk melihat fitur-fitur baru!
   `);
 
@@ -827,6 +810,7 @@ window.snakehelp = () => {
     - 📈 Dynamic speed adjustment
     - 🎯 Level system setiap 5 makanan
     - 🌟 Trail effects dan glow animations
+    - 🎨 Clean UI (no overlay text)
     `);
 };
 
@@ -840,5 +824,6 @@ window.gameinfo = () => {
     - AI Update Rate: 6ms
     - Particle System: Active
     - Special Food Chance: 0.3%
+    - UI Display: Disabled
     `);
 };
